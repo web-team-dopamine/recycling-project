@@ -1,6 +1,5 @@
 package com.dopamine.recycling.domain.entity;
 
-import com.dopamine.recycling.domain.dto.PostRequestDto;
 import com.dopamine.recycling.domain.dto.PostResponseDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +29,6 @@ public class Post {
     private LocalDateTime updatedAt;
     private Long views;
     private Long likes;
-    private boolean isDeleted;
 
     public PostResponseDto toResponse() {
         return PostResponseDto.builder()
@@ -40,7 +38,6 @@ public class Post {
                 .content(content)
                 .views(views)
                 .likes(likes)
-                .isDeleted(isDeleted)
                 .build();
     }
 }
