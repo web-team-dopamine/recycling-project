@@ -28,7 +28,6 @@ public class PostRequestDto {
                 .updatedAt(null)
                 .views(0L)
                 .likes(0L)
-                .isDeleted(false)
                 .build();
     }
 }

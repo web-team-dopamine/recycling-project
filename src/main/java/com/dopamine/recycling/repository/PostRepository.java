@@ -2,12 +2,10 @@ package com.dopamine.recycling.repository;
 
 import com.dopamine.recycling.domain.entity.Post;
 import jakarta.transaction.Transactional;
-import jdk.jfr.MetadataDefinition;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -18,7 +16,7 @@ public interface PostRepository extends JpaRepository<Post,Long> {
 
 
 
-    @Query("select p from  Post p where p.postType = :postType and p.isDeleted = false")
+    @Query("select p from  Post p where p.postType = :postType")
     List<Post> findByPostType(@Param("postType") String postType);
 
     @Modifying
