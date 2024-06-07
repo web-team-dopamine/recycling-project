@@ -21,5 +21,6 @@ public class Comments {
     private Long userId;
     private Long postId;
     private String content;
+    private Long likesCount;
     private boolean isDeleted;
 }

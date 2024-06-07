@@ -12,6 +12,7 @@ public class CommentsRequestDto {
     private Long userId;
     private Long postId;
     private String content;
+    private Long likesCount;
     private boolean isDeleted;
 
     public Comments toEntity(Long postId, Long userId) {
@@ -19,6 +20,7 @@ public class CommentsRequestDto {
                 .userId(userId)
                 .postId(postId)
                 .content(content)
+                .likesCount(likesCount)
                 .isDeleted(isDeleted)
                 .build();
     }

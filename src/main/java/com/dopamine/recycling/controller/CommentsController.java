@@ -5,6 +5,7 @@ import com.dopamine.recycling.domain.entity.Comments;
 import com.dopamine.recycling.security.CustomUserDetails;
 import com.dopamine.recycling.service.CommentsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -39,10 +40,11 @@ public class CommentsController {
                                 @AuthenticationPrincipal CustomUserDetails userDetails,
                                 Model model) {
         Long userId = userDetails.getUserId();
-        request.setUserId(userId);
-
         Long postId = request.getPostId();
+
+        request.setUserId(userId);
         request.setPostId(postId);
+        request.setLikesCount(0L);
 
         commentsService.addComment(request);
 
@@ -90,5 +92,17 @@ public class CommentsController {
 
         model.addAttribute("error", "You are not authorized to delete this comment.");
         return null;
+    }
+
+    @PostMapping("/like")
+    public ResponseEntity<?> likeComment(@AuthenticationPrincipal CustomUserDetails userDetails,
+                                         @RequestParam(value = "commentId") Long commentId) {
+        return ResponseEntity.ok(commentsService.addCommentLike(userDetails.getUserId(), commentId));
+    }
+
+    @DeleteMapping("/like/cancel")
+    public ResponseEntity<?> cancelLikeComment(@AuthenticationPrincipal CustomUserDetails userDetails,
+                                               @RequestParam(value = "commentId") Long commentId) {
+        return ResponseEntity.ok(commentsService.cancelCommentLike(userDetails.getUserId(), commentId));
     }
 }

@@ -5,6 +5,7 @@ import com.dopamine.recycling.domain.entity.Comments;
 import com.dopamine.recycling.repository.CommentsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -44,5 +45,17 @@ public class CommentsService {
             return commentsRepository.findAllByPostId(comment.getPostId());
         }
         return Collections.emptyList();
+    }
+
+    @Transactional
+    public int addCommentLike(Long userId, Long commentId) {
+        commentsRepository.addCommentLike(userId, commentId);
+        return commentsRepository.likeCount(commentId);
+    }
+
+    @Transactional
+    public int cancelCommentLike(Long userId, Long commentId) {
+        commentsRepository.cancelCommentLike(userId, commentId);
+        return commentsRepository.likeCount(commentId);
     }
 }

@@ -31,4 +31,17 @@ public interface CommentsRepository extends JpaRepository<Comments,Long> {
 
     @Query("SELECT c FROM Comments c WHERE c.postId = :postId AND c.isDeleted = FALSE")
     List<Comments> findAllByPostId(@Param("postId") Long postId);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Comments c SET c.likesCount = c.likesCount + 1 WHERE c.id = :commentId AND c.userId = :userId")
+    void addCommentLike(@Param("userId") Long userId, @Param("commentId") Long commentId);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Comments c SET c.likesCount = CASE WHEN c.likesCount > 0 THEN c.likesCount - 1 ELSE c.likesCount END WHERE c.id = :commentId AND c.userId = :userId")
+    void cancelCommentLike(@Param("userId") Long userId, @Param("commentId") Long commentId);
+
+    @Query("SELECT c.likesCount FROM Comments c WHERE c.id = :commentId")
+    Integer likeCount(@Param("commentId") Long commentId);
 }
