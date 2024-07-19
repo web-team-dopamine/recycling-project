@@ -29,6 +29,7 @@ public class Post {
     private LocalDateTime updatedAt;
     private Long views;
     private Long likes;
+    private boolean isDeleted = false;
 
     public PostResponseDto toResponse() {
         return PostResponseDto.builder()

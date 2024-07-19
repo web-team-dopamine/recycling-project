@@ -15,6 +15,7 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
+    private Long deliveryId;
     private LocalDateTime orderDate;
     private String orderStatus;
 }
