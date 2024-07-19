@@ -68,6 +68,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @PutMapping("/new/address")
+    public ResponseEntity<?> UpdateAddress(@RequestBody UserRequestDto request, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        User user = userService.updateAddress(request);
+        UserResponseDto response = user.toResponse();
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @DeleteMapping("/secession/permanent")
     public ResponseEntity<?> DeleteUser(@AuthenticationPrincipal CustomUserDetails userDetails) {
         if(userService.passedDeleteDate(userDetails.getDeleteDate())) {

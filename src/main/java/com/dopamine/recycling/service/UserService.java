@@ -53,6 +53,10 @@ public class UserService implements UserDetailsService {
         userRepository.updatePasswordById(id, password);
     }
 
+    public User updateAddress(UserRequestDto request) {
+        return userRepository.updateAddressById(request.getId(), request.getAddress(), request.getPostcode());
+    }
+
     public void updateDeleteDate(UserRequestDto request) {
         userRepository.updateDeleteDateById(request.getId(), LocalDateTime.now());
     }
