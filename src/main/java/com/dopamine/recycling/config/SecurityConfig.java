@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -26,7 +27,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/", "/login", "/user/**").permitAll()
+                                .requestMatchers("/", "/login", "/logout", "/user/**", "/products").permitAll()
                                 .requestMatchers("/admin/**").hasAnyRole(Role.ROLE_ADMIN.getName())
                                 .requestMatchers("/seller/**").hasAnyRole(Role.ROLE_SELLER.getName(), Role.ROLE_ADMIN.getName())
                                 .anyRequest().authenticated())
@@ -34,7 +35,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/",true))
                 .logout(auth -> auth.logoutSuccessUrl("/")
                         .invalidateHttpSession(true))
-                .csrf(auth -> auth.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 
