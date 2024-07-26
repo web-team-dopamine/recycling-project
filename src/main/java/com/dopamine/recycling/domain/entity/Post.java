@@ -22,7 +22,6 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
-    private String postType;
     private String title;
     private String content;
     private LocalDateTime createdAt;
@@ -34,7 +33,6 @@ public class Post {
     public PostResponseDto toResponse() {
         return PostResponseDto.builder()
                 .id(id)
-                .postType(postType)
                 .title(title)
                 .content(content)
                 .views(views)

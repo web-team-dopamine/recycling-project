@@ -1,6 +1,5 @@
 package com.dopamine.recycling.controller;
 
-import com.dopamine.recycling.domain.constant.PostType;
 import com.dopamine.recycling.domain.dto.PostRequestDto;
 import com.dopamine.recycling.domain.dto.PostResponseDto;
 import com.dopamine.recycling.domain.entity.Post;
@@ -48,54 +47,6 @@ public class PostController {
         }
 
         return ResponseEntity.ok(new PostResponseDto(post));
-    }
-
-    @GetMapping("/proof")
-    public ResponseEntity<List<PostResponseDto>> findPostByPostTypeProof() {
-        PostType postType = PostType.PROOF;
-
-        List<Post> postList = postService.getPostByPostTypeProof(postType.name());
-
-        if(postList.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
-        List<PostResponseDto> responseList = postList.stream()
-                .map(PostResponseDto::new)
-                .toList();
-        return ResponseEntity.ok(responseList);
-    }
-
-    @GetMapping("/promotion")
-    public ResponseEntity<List<PostResponseDto>> findPostByPostTypePromotion() {
-        PostType postType = PostType.PROMOTION;
-
-        List<Post> postList = postService.getPostByPostTypePromotion(postType.name());
-
-        if(postList.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
-        List<PostResponseDto> responseList = postList.stream()
-                .map(PostResponseDto::new)
-                .toList();
-        return ResponseEntity.ok(responseList);
-    }
-
-    @GetMapping("/complain")
-    public ResponseEntity<List<PostResponseDto>> findPostByPostTypeComplain() {
-        PostType postType = PostType.COMPLAIN;
-
-        List<Post> postList = postService.getPostByPostTypeComplain(postType.name());
-
-        if(postList.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
-        List<PostResponseDto> responseList = postList.stream()
-                .map(PostResponseDto::new)
-                .toList();
-        return ResponseEntity.ok(responseList);
     }
 
     @PutMapping("/{id}")

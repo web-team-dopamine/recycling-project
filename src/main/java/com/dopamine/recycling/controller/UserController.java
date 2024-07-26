@@ -12,6 +12,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -28,6 +30,37 @@ public class UserController {
             UserResponseDto response = user.toResponse();
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        }
+    }
+
+    // Login check for postman
+    @PostMapping("/loginCheck")
+    public String LoginCheck(@RequestBody UserRequestDto request) {
+        String userEmail = "";
+        if(userService.isExistEmail(request.getEmail())) {
+            userEmail = request.getEmail();
+        }
+
+        if(!userEmail.isEmpty()) {
+            String userPassword = userService.getPasswordByEmail(userEmail);
+            if(passwordEncoder.matches(request.getPassword(), userPassword)) {
+                return "login success";
+            }
+        }
+        return "login failed";
+    }
+
+    // Checking User's Profile
+    @GetMapping("/profile")
+    public ResponseEntity<?> getProfile(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        Optional<User> userOptional = userService.findById(userDetails.getUserId());
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            UserResponseDto response = user.toResponse();
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
 

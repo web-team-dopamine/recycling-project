@@ -21,7 +21,6 @@ public class PostRequestDto {
 
     public Post toEntity() {
         return Post.builder()
-                .postType(postType)
                 .title(title)
                 .content(content)
                 .createdAt(LocalDateTime.now())

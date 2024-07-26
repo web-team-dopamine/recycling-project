@@ -23,19 +23,36 @@ public class SecurityConfig {
                 );
     }
 
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+//        return httpSecurity
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/", "/login", "/logout", "/user/**").permitAll()
+//                        .requestMatchers("/admin/**").hasAnyRole(Role.ROLE_ADMIN.getName())
+//                        .requestMatchers("/seller/**").hasAnyRole(Role.ROLE_SELLER.getName(), Role.ROLE_ADMIN.getName())
+//                        .anyRequest().authenticated())
+//                .formLogin(auth -> auth
+//                        .loginPage("/login")  // 로그인 페이지
+//                        .loginProcessingUrl("/login")  // 로그인 처리 URL
+//                        .defaultSuccessUrl("/", true)
+//                        .failureUrl("/login?error=true")
+//                        .permitAll())
+//                .logout(auth -> auth
+//                        .logoutUrl("/logout")
+//                        .logoutSuccessUrl("/")
+//                        .invalidateHttpSession(true)
+//                        .permitAll())
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .build();
+//    }
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/", "/login", "/logout", "/user/**").permitAll()
-                                .requestMatchers("/admin/**").hasAnyRole(Role.ROLE_ADMIN.getName())
-                                .requestMatchers("/seller/**").hasAnyRole(Role.ROLE_SELLER.getName(), Role.ROLE_ADMIN.getName())
-                                .anyRequest().authenticated())
-                .formLogin(auth -> auth.loginPage("/login")
-                        .defaultSuccessUrl("/",true))
-                .logout(auth -> auth.logoutSuccessUrl("/")
-                        .invalidateHttpSession(true))
-                .csrf(AbstractHttpConfigurer::disable)
+                        .anyRequest().permitAll())  // 모든 요청을 허용
+                .csrf(AbstractHttpConfigurer::disable)  // CSRF 보호 비활성화
                 .build();
     }
 

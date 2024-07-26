@@ -11,7 +11,6 @@ import lombok.*;
 public class PostResponseDto {
 
     private Long id;
-    private String postType;
     private String title;
     private String content;
     private Long views;
@@ -21,7 +20,6 @@ public class PostResponseDto {
 
     public PostResponseDto(Post post) {
         this.id = post.getId();
-        this.postType = post.getPostType();
         this.title = post.getTitle();
         this.content = post.getContent();
         this.views = post.getViews();

@@ -6,20 +6,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
-public class Product {
+public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long userId;
-    private String name;
-    private Long price;
-    private String content;
-    private Long marks;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private String imagePath;
+    private Long reporterId;
+    private Long reporteeId;
+    private String reason;
+    private String explanation;
+
 }
