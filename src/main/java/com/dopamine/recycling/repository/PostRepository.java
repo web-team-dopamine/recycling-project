@@ -14,13 +14,8 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post,Long> {
 
-
-
-    @Query("select p from  Post p where p.postType = :postType")
-    List<Post> findByPostType(@Param("postType") String postType);
-
     @Modifying
     @Transactional
-    @Query("update Post p set p.postType = :postType, p.title = :title, p.content = :content, p.updatedAt =  :now where p.id = :id ")
-    void updatePostById(@Param("id") Long id, @Param("postType") String postType, @Param("title") String title, @Param("content") String content, @Param("now") LocalDateTime now);
+    @Query("update Post p set p.title = :title, p.content = :content, p.updatedAt =  :now where p.id = :id ")
+    void updatePostById(@Param("id") Long id, @Param("title") String title, @Param("content") String content, @Param("now") LocalDateTime now);
 }

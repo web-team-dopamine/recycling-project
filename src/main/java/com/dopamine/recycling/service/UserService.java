@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,12 +46,20 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public Optional<User> findById(long id)  {
+        return userRepository.findById(id);
+    }
+
     public User updateNickname(UserRequestDto request) {
         return userRepository.updateNicknameById(request.getId(), request.getNickname());
     }
 
     public void updatePassword(Long id, String password) {
         userRepository.updatePasswordById(id, password);
+    }
+
+    public User updateAddress(UserRequestDto request) {
+        return userRepository.updateAddressById(request.getId(), request.getAddress(), request.getPostcode());
     }
 
     public void updateDeleteDate(UserRequestDto request) {
@@ -94,5 +103,11 @@ public class UserService implements UserDetailsService {
 
     public boolean isExistNickname(String nickname) {
         return userRepository.findByNickname(nickname).isPresent();
+    }
+
+    public String getPasswordByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(User::getPassword)
+                .orElse("DefaultPassword"); // 기본 값을 제공
     }
 }

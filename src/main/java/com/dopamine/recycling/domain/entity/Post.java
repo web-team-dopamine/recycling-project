@@ -22,18 +22,17 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
-    private String postType;
     private String title;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Long views;
     private Long likes;
+    private boolean isDeleted = false;
 
     public PostResponseDto toResponse() {
         return PostResponseDto.builder()
                 .id(id)
-                .postType(postType)
                 .title(title)
                 .content(content)
                 .views(views)

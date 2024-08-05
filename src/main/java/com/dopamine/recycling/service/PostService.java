@@ -27,18 +27,6 @@ public class PostService {
         return postRepository.findById(id).orElse(null);
     }
 
-    public List<Post> getPostByPostTypeProof(String proof) {
-        return postRepository.findByPostType(proof);
-    }
-
-    public List<Post> getPostByPostTypePromotion(String promotion) {
-        return postRepository.findByPostType(promotion);
-    }
-
-    public List<Post> getPostByPostTypeComplain(String complain) {
-        return postRepository.findByPostType(complain);
-    }
-
     @Transactional
     public void updatePost(Long id, PostRequestDto request) {
         Post post = postRepository.findById(id).orElse(null);
@@ -47,7 +35,7 @@ public class PostService {
             return;
         }
 
-        postRepository.updatePostById(id, request.getPostType(), request.getTitle(), request.getContent(), LocalDateTime.now());
+        postRepository.updatePostById(id, request.getTitle(), request.getContent(), LocalDateTime.now());
     }
 
     public void deletePostById(Long id) {

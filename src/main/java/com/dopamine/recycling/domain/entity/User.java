@@ -30,6 +30,7 @@ public class User {
     private boolean isPaused;
     private LocalDateTime unpauseDate;
     private LocalDateTime deleteDate;
+    private boolean isDeleted = false;
 
     public UserResponseDto toResponse() {
         return UserResponseDto.builder()

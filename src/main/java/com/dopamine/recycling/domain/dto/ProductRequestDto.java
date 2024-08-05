@@ -1,6 +1,6 @@
 package com.dopamine.recycling.domain.dto;
 
-import com.dopamine.recycling.domain.entity.Post;
+import com.dopamine.recycling.domain.entity.Product;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -10,23 +10,24 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PostRequestDto {
-    private String postType;
-    private String title;
+public class ProductRequestDto {
+    private String name;
+    private Long price;
     private String content;
+    private String imagePath;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Long views;
-    private Long likes;
+    private Long marks;
 
-    public Post toEntity() {
-        return Post.builder()
-                .title(title)
+    public Product toEntity() {
+        return Product.builder()
+                .name(name)
+                .price(price)
                 .content(content)
+                .imagePath(imagePath)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(null)
-                .views(0L)
-                .likes(0L)
+                .marks(0L)
                 .build();
     }
 }

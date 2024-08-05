@@ -8,10 +8,13 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class Empathy {
+public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long userId;
-    private Long reviewId;
+    private Long reporterId;
+    private Long reporteeId;
+    private String reason;
+    private String explanation;
+
 }
