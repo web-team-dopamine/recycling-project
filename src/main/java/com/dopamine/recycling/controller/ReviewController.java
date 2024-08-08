@@ -54,4 +54,24 @@ public class ReviewController {
 
         return ResponseEntity.ok(responseList);
     }
+
+    @PutMapping("/{reviewId}")
+    public ResponseEntity<String> updateReview(@PathVariable("reviewId") Long reviewId, @RequestBody ReviewRequestDto request) {
+        try {
+            reviewService.updateReview(reviewId, request);
+            return ResponseEntity.ok().build();
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable("reviewId") Long reviewId) {
+        try{
+            reviewService.deleteReview(reviewId);
+            return ResponseEntity.ok().build();
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }
